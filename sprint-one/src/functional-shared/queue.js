@@ -12,13 +12,11 @@ var queueMethods = {
     this.storage[this.size()] = value;
   },
   dequeue: function() {
-    if (this.size() > 0) {
-      var temp = this.storage[0];
-      for (var i = 1; i < this.size(); i++) {
-        this.storage[i - 1] = this.storage[i];
-      }
-      delete this.storage[i - 1];
+    var temp = this.storage[0];
+    for (var i = 1; i < this.size(); i++) {
+      this.storage[i - 1] = this.storage[i];
     }
+    delete this.storage[i - 1];
     return temp;
   },
   size: function() {
