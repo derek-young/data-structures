@@ -46,9 +46,4 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
- 
-First time we add a value, .value for head and taeil points to it
-Secon time we add a valeu, head .next needs to point to it and tail.value needs to point to it
-Every other time, we just have to update tail.value
-
  */
