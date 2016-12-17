@@ -47,16 +47,16 @@ HashTable.prototype.remove = function(k) {
   }
 
   HashTable.prototype.rehash = function() {
-    var pairs = [];
+    var tuples = [];
     this._storage.each(function(bucket, key, storage) {
       if (bucket !== undefined) {
-        pairs = pairs.concat(bucket);
+        tuples = tuples.concat(bucket);
       }
     });
     this._size = 0;
     this._storage = LimitedArray(this._limit);
-    for (var i = 0; i < pairs.length; i++) {
-      this.insert(pairs[i][0], pairs[i][1]);
+    for (var i = 0; i < tuples.length; i++) {
+      this.insert(tuples[i][0], tuples[i][1]);
     }
   };
 };

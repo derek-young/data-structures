@@ -17,6 +17,19 @@ treeMethods.addChild = function(value) {
   this.children.push(child);
 };
 
+treeMethods.removeChild = function(target, siblings, index) {
+  if (this.value === target) {
+    siblings.splice(index, 1);
+    return true;
+  }
+  if (this.children.length > 0) {
+    for (var i = 0; i < this.children.length; i++) {
+      this.children[i].removeChild(target, this.children, i);
+    }
+  }
+  return false;
+};
+
 treeMethods.contains = function(target) {
   var result = false;
   if (this.value === target) {

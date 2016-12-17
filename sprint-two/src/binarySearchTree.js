@@ -1,7 +1,7 @@
-var BinarySearchTree = function(value, left, right) {
+var BinarySearchTree = function(value) {
   var node = Object.create(searchTreeMethods);
-  node.left = left || null;
-  node.right = right || null;
+  node.left = null;
+  node.right = null;
   node.value = value;
   return node;
 };
@@ -12,12 +12,7 @@ var BinarySearchTree = function(value, left, right) {
 
 var searchTreeMethods = {
   insert: function(value) {
-    var branch;
-    if (value > this.value) {
-      branch = 'right';
-    } else {
-      branch = 'left';
-    }
+    var branch = value > this.value ? 'right' : 'left';
     if (this[branch] === null) {
       this[branch] = BinarySearchTree(value);
     } else {
@@ -29,11 +24,7 @@ var searchTreeMethods = {
       return true;
     }
     //Recursively call 'contains' with the node at position left or position right
-    if (value > this.value) {
-      branch = 'right';
-    } else {
-      branch = 'left';
-    }
+    var branch = value > this.value ? 'right' : 'left';
     if (this[branch] !== null) {
       return this[branch].contains(value);
     }
