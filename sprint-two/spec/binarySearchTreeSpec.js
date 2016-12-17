@@ -50,7 +50,6 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(6);
     binarySearchTree.insert(8);
     binarySearchTree.breadthFirstLog(func);
-    console.log(array);
     expect(array).to.eql([5, 2, 7, 1, 3, 6, 8]);
   });
 });
