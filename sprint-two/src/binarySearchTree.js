@@ -40,5 +40,27 @@ var searchTreeMethods = {
     if (hasRight) {
       this.right.depthFirstLog(callback);
     }
+  },
+  breadthFirstLog: function(callback, first) {
+    var hasLeft = this.left !== null;
+    var hasRight = this.right !== null;
+    if (first === undefined) {
+      first = true;
+    }
+    if (first) {
+      callback(this.value);
+    }
+    if (hasLeft) {
+      callback(this.left.value);
+    }
+    if (hasRight) {
+      callback(this.right.value);
+    } 
+    if (hasLeft) {
+      this.left.breadthFirstLog(callback, false);
+    }
+    if (hasRight) {
+      this.right.breadthFirstLog(callback, false);
+    }  
   }
 };
