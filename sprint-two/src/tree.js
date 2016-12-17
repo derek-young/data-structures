@@ -2,11 +2,8 @@ var Tree = function(value) {
   var newTree = {};
   newTree.value = value;
 
-  // your code here
   newTree.children = [];
-
   _.extend(newTree, treeMethods);
-
   return newTree;
 };
 
@@ -43,6 +40,14 @@ treeMethods.contains = function(target) {
   return result;
 };
 
+treeMethods.traverse = function(cb) {
+  this.value = cb(this.value);
+  if (this.children.length > 0) {
+    for (var i = 0; i < this.children.length; i++) {
+      this.children[i].traverse(cb);
+    }
+  }
+};
 
 
 /*

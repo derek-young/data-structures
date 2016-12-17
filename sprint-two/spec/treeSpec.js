@@ -46,7 +46,23 @@ describe('tree', function() {
     tree.addChild(5);
     tree.addChild(6);
     tree.removeChild(6);
-    //console.log(tree);
     expect(tree.contains(6)).to.equal(false);
   });
+
+  it('should apply a function to every element in the tree', function() {
+    var double = function(x) {
+      return x * 2;
+    };
+
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.addChild(15);
+    tree.addChild(61);
+    tree.traverse(double);
+    expect(tree.contains(10)).to.equal(true);
+    expect(tree.contains(12)).to.equal(true);
+    expect(tree.contains(30)).to.equal(true);
+    expect(tree.contains(122)).to.equal(true);
+  });
+
 });
