@@ -39,23 +39,25 @@ HashTable.prototype.remove = function(k) {
   }
   var index = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(index);
-  _.each(bucket, function(item) {
-    if (item[0] === k) {
-      bucket.splice(item, 1);
+  for (var i = 0; i < bucket.length; i++) {
+    if (bucket[i][0] === k) {
+      bucket.splice(i, 1);
       this._size--;
     }
-  });
+  }
 
   HashTable.prototype.rehash = function() {
     var pairs = [];
-    console.log(this);
-    this.each(function(bucket) {
-      pairs = pairs.concat(bucket, key, storage);
-      storage.splice(key, 1);
+    this._storage.each(function(bucket, key, storage) {
+      if (bucket !== undefined) {
+        pairs = pairs.concat(bucket);
+      }
     });
-    _.each(pairs, function(pair) {
-      this.insert.apply(this, pair);
-    });
+    this._size = 0;
+    this._storage = LimitedArray(this._limit);
+    for (var i = 0; i < pairs.length; i++) {
+      this.insert(pairs[i][0], pairs[i][1]);
+    }
   };
 };
 
