@@ -23,9 +23,7 @@ var searchTreeMethods = {
     }
   },
   contains: function(value) {
-    if (this.value === value) {
-      return true;
-    }
+    if (this.value === value) return true;
     //Recursively call 'contains' with the node at position left or position right
     var branch = value > this.value ? 'right' : 'left';
     if (this[branch] !== null) {
@@ -35,34 +33,16 @@ var searchTreeMethods = {
   },
   depthFirstLog: function(callback) {
     callback(this.value);
-    if (this.left) {
-      this.left.depthFirstLog(callback);
-    }
-    if (this.right) {
-      this.right.depthFirstLog(callback);
-    }
+    if (this.left) this.left.depthFirstLog(callback);
+    if (this.right) this.right.depthFirstLog(callback);
   },
   breadthFirstLog: function(callback, first) {
-    var hasLeft = this.left !== null;
-    var hasRight = this.right !== null;
-    if (first === undefined) {
-      first = true;
-    }
-    if (first) {
-      callback(this.value);
-    }
-    if (hasLeft) {
-      callback(this.left.value);
-    }
-    if (hasRight) {
-      callback(this.right.value);
-    } 
-    if (hasLeft) {
-      this.left.breadthFirstLog(callback, false);
-    }
-    if (hasRight) {
-      this.right.breadthFirstLog(callback, false);
-    }
+    if (first === undefined) first = true;
+    if (first) callback(this.value);
+    if (this.left) callback(this.left.value);
+    if (this.right) callback(this.right.value);
+    if (this.left) this.left.breadthFirstLog(callback, false);
+    if (this.right) this.right.breadthFirstLog(callback, false);
   },
   balance: function(array) {
     var values = [];
@@ -75,9 +55,6 @@ var searchTreeMethods = {
       return a > b;
     });
 
-    this.buildBinaryTree(values);
-  },
-  buildBinaryTree: function(values) {
     var array = values.slice();
     var orderedValues = [];
 
@@ -94,6 +71,7 @@ var searchTreeMethods = {
       }
     };
     orderThem(array);
+    
     this.value = orderedValues[0];
     this.left = null;
     this.right = null;

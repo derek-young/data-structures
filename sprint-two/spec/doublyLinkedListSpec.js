@@ -1,4 +1,4 @@
-describe('doublydoublyLinkedList', function() {
+describe('doublyLinkedList', function() {
   var doublyLinkedList;
 
   beforeEach(function() {
