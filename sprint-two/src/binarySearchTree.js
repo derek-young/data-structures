@@ -12,11 +12,14 @@ var BinarySearchTree = function(value) {
 
 var searchTreeMethods = {
   insert: function(value) {
-    var branch = value > this.value ? 'right' : 'left';
-    if (this[branch] === null) {
-      this[branch] = BinarySearchTree(value);
-    } else {
-      this[branch].insert(value);
+    //If the value does not exist in the tree already...
+    if (value !== this.value) {
+      var branch = value > this.value ? 'right' : 'left';
+      if (this[branch] === null) {
+        this[branch] = BinarySearchTree(value);
+      } else {
+        this[branch].insert(value);
+      }
     }
   },
   contains: function(value) {
@@ -31,13 +34,11 @@ var searchTreeMethods = {
     return false;
   },
   depthFirstLog: function(callback) {
-    var hasLeft = this.left !== null;
-    var hasRight = this.right !== null;
     callback(this.value);
-    if (hasLeft) {
+    if (this.left) {
       this.left.depthFirstLog(callback);
     }
-    if (hasRight) {
+    if (this.right) {
       this.right.depthFirstLog(callback);
     }
   },
@@ -61,6 +62,43 @@ var searchTreeMethods = {
     }
     if (hasRight) {
       this.right.breadthFirstLog(callback, false);
-    }  
+    }
+  },
+  balance: function(array) {
+    var values = [];
+
+    this.depthFirstLog(function(value) {
+      values.push(value);
+    });
+
+    values.sort(function(a, b) {
+      return a > b;
+    });
+
+    this.buildBinaryTree(values);
+  },
+  buildBinaryTree: function(values) {
+    var array = values.slice();
+    var orderedValues = [];
+
+    var orderThem = function (array) {
+      if (array.length === 1) {
+        orderedValues.push(array[0]);
+      } else {
+        var leftHalf = array.splice(0, Math.floor(array.length / 2));
+        orderedValues.push(array.shift());
+        orderThem(leftHalf);
+        if (array.length > 0) {
+          orderThem(array);
+        }
+      }
+    };
+    orderThem(array);
+    this.value = orderedValues[0];
+    this.left = null;
+    this.right = null;
+    for (var i = 1; i < orderedValues.length; i++) {
+      this.insert(orderedValues[i]);
+    }
   }
 };
